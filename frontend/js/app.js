@@ -49,53 +49,175 @@ async function loadPolicyInfo() {
         const response = await fetch(`${API_BASE}/claims/policy`);
         const policy = await response.json();
         
+        const hospitalLogos = {
+            'Apollo Hospitals': 'https://logo.clearbit.com/apollohospitals.com',
+            'Fortis Healthcare': 'https://logo.clearbit.com/fortishealthcare.com',
+            'Max Healthcare': 'https://logo.clearbit.com/maxhealthcare.in',
+            'Manipal Hospitals': 'https://logo.clearbit.com/manipalhospitals.com',
+            'Medanta': 'https://logo.clearbit.com/medanta.org',
+            'AIIMS': 'https://logo.clearbit.com/aiims.edu',
+            'Narayana Health': 'https://logo.clearbit.com/narayanahealth.org',
+            'Columbia Asia': 'https://logo.clearbit.com/columbiaasia.com'
+        };
+        
+        const categoryIcons = {
+            'consultation': '🩺',
+            'diagnostic': '🔬',
+            'pharmacy': '💊',
+            'dental': '🦷',
+            'vision': '👁️',
+            'alternative_medicine': '🌿'
+        };
+        
         const container = document.getElementById('policyInfo');
         container.innerHTML = `
-            <div class="policy-card">
-                <div class="policy-card-header">Coverage Limits</div>
-                <div class="policy-card-body">
-                    <div class="policy-grid">
-                        <div class="policy-item">
-                            <div class="label">Sum Insured</div>
-                            <div class="value">₹${policy.coverage.sum_insured_per_employee.toLocaleString()}</div>
+            <div class="policy-overview">
+                <div class="policy-card policy-hero">
+                    <div class="policy-hero-content">
+                        <div class="policy-logo">🏥</div>
+                        <div class="policy-hero-text">
+                            <h2>${policy.policy_name || 'Group Health Insurance'}</h2>
+                            <p class="policy-id">Policy ID: ${policy.policy_id || 'PLM-GHI-2024-001'}</p>
+                            <p class="policy-period">Valid: ${policy.start_date || '01 Apr 2024'} - ${policy.end_date || '31 Mar 2029'}</p>
                         </div>
-                        <div class="policy-item">
-                            <div class="label">Annual OPD Limit</div>
-                            <div class="value">₹${policy.coverage.annual_opd_limit.toLocaleString()}</div>
-                        </div>
-                        <div class="policy-item">
-                            <div class="label">Per Claim Limit</div>
-                            <div class="value">₹${policy.coverage.per_claim_limit.toLocaleString()}</div>
+                        <div class="policy-status">
+                            <span class="status-active">● Active</span>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="policy-card">
-                <div class="policy-card-header">OPD Categories</div>
-                <div class="policy-card-body">
-                    <div class="policy-grid">
-                        ${Object.entries(policy.opd_categories).map(([cat, details]) => `
-                            <div class="policy-item">
-                                <div class="label">${formatCategoryName(cat)}</div>
-                                <div class="value">
-                                    ₹${details.sub_limit.toLocaleString()} limit<br>
-                                    <small style="color: var(--text-secondary)">${details.copay_percent}% co-pay</small>
-                                </div>
-                            </div>
-                        `).join('')}
+            <div class="policy-section">
+                <h3 class="section-title">Coverage Summary</h3>
+                <div class="coverage-cards">
+                    <div class="coverage-card">
+                        <div class="coverage-icon">💰</div>
+                        <div class="coverage-details">
+                            <span class="coverage-label">Sum Insured</span>
+                            <span class="coverage-value">₹${policy.coverage.sum_insured_per_employee.toLocaleString()}</span>
+                            <span class="coverage-sub">Per Employee Per Year</span>
+                        </div>
+                    </div>
+                    <div class="coverage-card">
+                        <div class="coverage-icon">📋</div>
+                        <div class="coverage-details">
+                            <span class="coverage-label">OPD Limit</span>
+                            <span class="coverage-value">₹${policy.coverage.annual_opd_limit.toLocaleString()}</span>
+                            <span class="coverage-sub">Annual Limit</span>
+                        </div>
+                    </div>
+                    <div class="coverage-card">
+                        <div class="coverage-icon">📝</div>
+                        <div class="coverage-details">
+                            <span class="coverage-label">Per Claim</span>
+                            <span class="coverage-value">₹${policy.coverage.per_claim_limit.toLocaleString()}</span>
+                            <span class="coverage-sub">Maximum Per Claim</span>
+                        </div>
+                    </div>
+                    <div class="coverage-card highlight">
+                        <div class="coverage-icon">🏥</div>
+                        <div class="coverage-details">
+                            <span class="coverage-label">Network Discount</span>
+                            <span class="coverage-value">20%</span>
+                            <span class="coverage-sub">At Partner Hospitals</span>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <div class="policy-card">
-                <div class="policy-card-header">Network Hospitals (20% Discount)</div>
-                <div class="policy-card-body">
-                    <div class="hospital-list">
-                        ${policy.network_hospitals.map(h => `
-                            <span class="hospital-tag">${h}</span>
-                        `).join('')}
+            <div class="policy-section">
+                <h3 class="section-title">OPD Categories & Limits</h3>
+                <div class="categories-table">
+                    <div class="table-header">
+                        <span>Category</span>
+                        <span>Sub-Limit</span>
+                        <span>Co-Pay</span>
+                        <span>Waiting Period</span>
                     </div>
+                    ${Object.entries(policy.opd_categories).map(([cat, details]) => `
+                        <div class="table-row">
+                            <span class="category-name">
+                                <span class="category-icon">${categoryIcons[cat] || '📄'}</span>
+                                ${formatCategoryName(cat)}
+                            </span>
+                            <span class="category-limit">₹${details.sub_limit.toLocaleString()}</span>
+                            <span class="category-copay">${details.copay_percent}%</span>
+                            <span class="category-waiting">${details.waiting_period_days || 0} days</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            
+            <div class="policy-section">
+                <h3 class="section-title">Network Hospitals <span class="hospital-count">${policy.network_hospitals.length} Partners</span></h3>
+                <p class="section-subtitle">Avail 20% discount at these partner hospitals</p>
+                <div class="hospitals-grid">
+                    ${policy.network_hospitals.map(h => `
+                        <div class="hospital-card">
+                            <img src="${hospitalLogos[h] || `https://ui-avatars.com/api/?name=${encodeURIComponent(h)}&background=0066cc&color=fff&size=64`}" 
+                                 alt="${h}" 
+                                 class="hospital-logo"
+                                 onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(h)}&background=0066cc&color=fff&size=64'">
+                            <span class="hospital-name">${h}</span>
+                            <span class="hospital-discount">20% Off</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            
+            <div class="policy-section">
+                <h3 class="section-title">Exclusions & Waiting Periods</h3>
+                <div class="exclusions-grid">
+                    <div class="exclusion-card">
+                        <h4>🚫 General Exclusions</h4>
+                        <ul>
+                            <li>Cosmetic procedures (unless medically necessary)</li>
+                            <li>Self-inflicted injuries</li>
+                            <li>Substance abuse treatment</li>
+                            <li>Experimental treatments</li>
+                            <li>War or nuclear risks</li>
+                        </ul>
+                    </div>
+                    <div class="exclusion-card">
+                        <h4>⏳ Waiting Periods</h4>
+                        <ul>
+                            <li>Pre-existing conditions: 2 years</li>
+                            <li>Maternity benefits: 9 months</li>
+                            <li>Specific diseases: 2 years</li>
+                            <li>General OPD: 30 days</li>
+                        </ul>
+                    </div>
+                    <div class="exclusion-card">
+                        <h4>📋 Pre-Authorization Required</h4>
+                        <ul>
+                            <li>Claims above ₹10,000</li>
+                            <li>All surgical procedures</li>
+                            <li>Diagnostic packages</li>
+                            <li>Alternative medicine treatments</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="policy-section">
+                <h3 class="section-title">Quick Actions</h3>
+                <div class="quick-actions">
+                    <button class="action-btn" onclick="showPage('submit')">
+                        <span class="action-icon">📤</span>
+                        <span>Submit Claim</span>
+                    </button>
+                    <button class="action-btn" onclick="window.print()">
+                        <span class="action-icon">🖨️</span>
+                        <span>Print Policy</span>
+                    </button>
+                    <button class="action-btn">
+                        <span class="action-icon">📞</span>
+                        <span>Contact Support</span>
+                    </button>
+                    <button class="action-btn">
+                        <span class="action-icon">📥</span>
+                        <span>Download PDF</span>
+                    </button>
                 </div>
             </div>
         `;

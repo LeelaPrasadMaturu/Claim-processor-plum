@@ -759,6 +759,348 @@ body {
     font-weight: 500;
 }
 
+/* Enhanced Policy Page */
+.policy-hero {
+    background: linear-gradient(135deg, #0066cc 0%, #004d99 100%);
+    color: white;
+    border: none;
+}
+
+.policy-hero-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+}
+
+.policy-logo {
+    font-size: 3rem;
+    background: rgba(255,255,255,0.2);
+    padding: 16px;
+    border-radius: var(--radius-lg);
+}
+
+.policy-hero-text h2 {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+}
+
+.policy-id {
+    opacity: 0.9;
+    font-size: 0.9rem;
+}
+
+.policy-period {
+    opacity: 0.8;
+    font-size: 0.85rem;
+}
+
+.policy-status {
+    margin-left: auto;
+}
+
+.status-active {
+    background: rgba(255,255,255,0.2);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.policy-section {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    padding: 24px;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.section-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: -8px;
+    margin-bottom: 16px;
+}
+
+.hospital-count {
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: var(--primary-light);
+    color: var(--primary);
+    padding: 4px 10px;
+    border-radius: 12px;
+}
+
+.coverage-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.coverage-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px;
+    background: var(--bg-gray);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+}
+
+.coverage-card.highlight {
+    background: var(--primary-light);
+    border-color: var(--primary);
+}
+
+.coverage-icon {
+    font-size: 2rem;
+}
+
+.coverage-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.coverage-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.coverage-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.coverage-sub {
+    font-size: 0.75rem;
+    color: var(--text-light);
+}
+
+.categories-table {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.table-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    padding: 14px 20px;
+    background: var(--bg-gray);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+}
+
+.table-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+}
+
+.table-row:last-child {
+    border-bottom: none;
+}
+
+.table-row:hover {
+    background: var(--bg-gray);
+}
+
+.category-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+}
+
+.category-icon {
+    font-size: 1.25rem;
+}
+
+.category-limit {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.category-copay {
+    color: var(--text-secondary);
+}
+
+.category-waiting {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.hospitals-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.hospital-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: var(--bg-gray);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.hospital-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.hospital-logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    object-fit: contain;
+    background: white;
+    padding: 4px;
+    margin-bottom: 12px;
+}
+
+.hospital-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.hospital-discount {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--success);
+    background: var(--success-light);
+    padding: 4px 10px;
+    border-radius: 12px;
+}
+
+.exclusions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.exclusion-card {
+    padding: 20px;
+    background: var(--bg-gray);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+}
+
+.exclusion-card h4 {
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.exclusion-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.exclusion-card li {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--border);
+}
+
+.exclusion-card li:last-child {
+    border-bottom: none;
+}
+
+.quick-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: var(--bg-gray);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.action-btn:hover {
+    background: var(--primary-light);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.action-icon {
+    font-size: 1.1rem;
+}
+
+@media (max-width: 1024px) {
+    .coverage-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .hospitals-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .exclusions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .table-header,
+    .table-row {
+        grid-template-columns: 1.5fr 1fr 1fr 1fr;
+        font-size: 0.85rem;
+        padding: 12px 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .policy-hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .policy-status {
+        margin-left: 0;
+    }
+    
+    .coverage-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .hospitals-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Modal */
 .modal {
     display: none;
