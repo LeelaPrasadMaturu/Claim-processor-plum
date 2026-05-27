@@ -1,6 +1,6 @@
 const API_BASE = '/api';
 
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
     initNavigation();
     initForm();
     initTestRunner();
@@ -9,6 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
     loadPolicyInfo();
     loadDashboard();
     loadClaimHistory();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initAuth();
+    if (isAuthenticated()) {
+        initApp();
+    }
+    window.onAuthSuccess = initApp;
 });
 
 function initNavigation() {

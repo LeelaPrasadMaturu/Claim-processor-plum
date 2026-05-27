@@ -234,6 +234,29 @@ Open your browser and navigate to:
 | http://localhost:8000/docs | Swagger API Documentation |
 | http://localhost:8000/redoc | ReDoc API Documentation |
 
+### Login Credentials
+
+> **Note (time constraint):** Due to the assignment timeline, authentication is implemented as a **frontend-only demo** with hardcoded users—there is no backend auth service, JWT, or database-backed user store. This keeps setup simple for reviewers while still demonstrating a login/signup flow. For production, this would be replaced with proper server-side authentication.
+
+The UI requires sign-in before accessing the app. Use any of these **pre-configured accounts**:
+
+| Email | Password | Role |
+|-------|----------|------|
+| `admin@plumhq.com` | `admin123` | Administrator |
+| `agent@plumhq.com` | `agent123` | Agent |
+| `demo@plumhq.com` | `demo123` | Viewer |
+
+**Sign up (optional):** You can also create a new account from the Sign up page:
+
+| Field | Value |
+|-------|-------|
+| Invite code | `PLUM2024` |
+| Password | Minimum 6 characters |
+
+New sign-ups are saved in the browser’s `localStorage` only (not on the server) and can log in on the same machine afterward.
+
+**Logout:** Use the **Logout** button in the top-right navbar to return to the login screen.
+
 ### Production Mode
 
 ```bash

@@ -8,6 +8,81 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Auth: Login & Signup -->
+    <div id="authView" class="auth-view">
+        <section id="login" class="auth-page active">
+            <div class="auth-card">
+                <div class="auth-brand">
+                    <span class="brand-icon">+</span>
+                    <h1>Plum Claims</h1>
+                    <p>Sign in to access the claims processor</p>
+                </div>
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" placeholder="admin@plumhq.com" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" placeholder="Enter password" required autocomplete="current-password">
+                    </div>
+                    <div id="loginError" class="auth-error"></div>
+                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                </form>
+                <div class="auth-demo-credentials">
+                    <p class="auth-demo-title">Demo accounts</p>
+                    <table class="auth-demo-table">
+                        <tr><td>admin@plumhq.com</td><td>admin123</td><td>Administrator</td></tr>
+                        <tr><td>agent@plumhq.com</td><td>agent123</td><td>Agent</td></tr>
+                        <tr><td>demo@plumhq.com</td><td>demo123</td><td>Viewer</td></tr>
+                    </table>
+                </div>
+                <p class="auth-switch">
+                    Don't have an account? <a href="#" id="showSignup">Sign up</a>
+                </p>
+            </div>
+        </section>
+
+        <section id="signup" class="auth-page">
+            <div class="auth-card">
+                <div class="auth-brand">
+                    <span class="brand-icon">+</span>
+                    <h1>Create Account</h1>
+                    <p>Register for Plum Claims Processor</p>
+                </div>
+                <form id="signupForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email</label>
+                        <input type="email" id="signupEmail" placeholder="you@company.com" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" placeholder="Min. 6 characters" required autocomplete="new-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupConfirm">Confirm Password</label>
+                        <input type="password" id="signupConfirm" placeholder="Confirm password" required autocomplete="new-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupInvite">Invite Code</label>
+                        <input type="text" id="signupInvite" placeholder="Enter invite code" required>
+                        <small class="form-hint">Use code: <strong>PLUM2024</strong></small>
+                    </div>
+                    <div id="signupError" class="auth-error"></div>
+                    <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                </form>
+                <p class="auth-switch">
+                    Already have an account? <a href="#" id="showLogin">Sign in</a>
+                </p>
+            </div>
+        </section>
+    </div>
+
+  <div id="appShell" class="hidden">
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-brand">
@@ -22,6 +97,10 @@
                 <li><a href="#" class="nav-link" data-page="test">Run Tests</a></li>
                 <li><a href="#" class="nav-link" data-page="policy">Policy Info</a></li>
             </ul>
+            <div class="nav-user-area">
+                <div id="navUser" class="nav-user"></div>
+                <button type="button" id="logoutBtn" class="btn btn-secondary btn-sm">Logout</button>
+            </div>
         </div>
     </nav>
 
@@ -264,7 +343,9 @@
     <footer class="footer">
         <p>Plum Health Insurance Claims Processor &bull; Multi-Agent AI System</p>
     </footer>
+  </div>
 
+    <script src="js/auth.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
