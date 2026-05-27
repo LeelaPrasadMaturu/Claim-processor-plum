@@ -16,7 +16,9 @@
             </div>
             <ul class="nav-links">
                 <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="dashboard">Dashboard</a></li>
                 <li><a href="#" class="nav-link" data-page="submit">Submit Claim</a></li>
+                <li><a href="#" class="nav-link" data-page="history">Claim History</a></li>
                 <li><a href="#" class="nav-link" data-page="test">Run Tests</a></li>
                 <li><a href="#" class="nav-link" data-page="policy">Policy Info</a></li>
             </ul>
@@ -85,6 +87,17 @@
             <div class="cta-section">
                 <button class="btn btn-primary btn-large" onclick="showPage('submit')">Submit a Claim</button>
                 <button class="btn btn-secondary btn-large" onclick="showPage('test')">Run Test Cases</button>
+            </div>
+        </section>
+
+        <!-- Dashboard Page -->
+        <section id="dashboard" class="page">
+            <div class="page-header">
+                <h1>Claims Dashboard</h1>
+                <p>Analytics and insights from processed claims</p>
+            </div>
+            <div id="dashboardContent" class="dashboard-content">
+                <div class="loading-state">Loading dashboard...</div>
             </div>
         </section>
 
@@ -173,6 +186,35 @@
                     </button>
                 </div>
             </form>
+        </section>
+
+        <!-- Claim History Page -->
+        <section id="history" class="page">
+            <div class="page-header">
+                <h1>Claim History</h1>
+                <p>View all processed claims and their status</p>
+            </div>
+            <div class="history-filters">
+                <select id="statusFilter" class="filter-select">
+                    <option value="">All Status</option>
+                    <option value="APPROVED">Approved</option>
+                    <option value="PARTIAL">Partial</option>
+                    <option value="REJECTED">Rejected</option>
+                    <option value="MANUAL_REVIEW">Manual Review</option>
+                </select>
+                <select id="categoryFilter" class="filter-select">
+                    <option value="">All Categories</option>
+                    <option value="CONSULTATION">Consultation</option>
+                    <option value="DIAGNOSTIC">Diagnostic</option>
+                    <option value="PHARMACY">Pharmacy</option>
+                    <option value="DENTAL">Dental</option>
+                    <option value="VISION">Vision</option>
+                </select>
+                <button class="btn btn-secondary" onclick="loadClaimHistory()">Refresh</button>
+            </div>
+            <div id="historyContent" class="history-content">
+                <div class="loading-state">Loading claim history...</div>
+            </div>
         </section>
 
         <!-- Test Cases Page -->

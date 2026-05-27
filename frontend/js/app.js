@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initModal();
     loadMembers();
     loadPolicyInfo();
+    loadDashboard();
+    loadClaimHistory();
 });
 
 function initNavigation() {
@@ -61,12 +63,12 @@ async function loadPolicyInfo() {
         };
         
         const categoryIcons = {
-            'consultation': '🩺',
-            'diagnostic': '🔬',
-            'pharmacy': '💊',
-            'dental': '🦷',
-            'vision': '👁️',
-            'alternative_medicine': '🌿'
+            'consultation': 'C',
+            'diagnostic': 'D',
+            'pharmacy': 'P',
+            'dental': 'T',
+            'vision': 'V',
+            'alternative_medicine': 'A'
         };
         
         const container = document.getElementById('policyInfo');
@@ -74,14 +76,14 @@ async function loadPolicyInfo() {
             <div class="policy-overview">
                 <div class="policy-card policy-hero">
                     <div class="policy-hero-content">
-                        <div class="policy-logo">🏥</div>
+                        <div class="policy-logo-box">GHI</div>
                         <div class="policy-hero-text">
                             <h2>${policy.policy_name || 'Group Health Insurance'}</h2>
                             <p class="policy-id">Policy ID: ${policy.policy_id || 'PLM-GHI-2024-001'}</p>
                             <p class="policy-period">Valid: ${policy.start_date || '01 Apr 2024'} - ${policy.end_date || '31 Mar 2029'}</p>
                         </div>
                         <div class="policy-status">
-                            <span class="status-active">● Active</span>
+                            <span class="status-active">Active</span>
                         </div>
                     </div>
                 </div>
@@ -91,7 +93,7 @@ async function loadPolicyInfo() {
                 <h3 class="section-title">Coverage Summary</h3>
                 <div class="coverage-cards">
                     <div class="coverage-card">
-                        <div class="coverage-icon">💰</div>
+                        <div class="coverage-icon-box">SI</div>
                         <div class="coverage-details">
                             <span class="coverage-label">Sum Insured</span>
                             <span class="coverage-value">₹${policy.coverage.sum_insured_per_employee.toLocaleString()}</span>
@@ -99,7 +101,7 @@ async function loadPolicyInfo() {
                         </div>
                     </div>
                     <div class="coverage-card">
-                        <div class="coverage-icon">📋</div>
+                        <div class="coverage-icon-box">OPD</div>
                         <div class="coverage-details">
                             <span class="coverage-label">OPD Limit</span>
                             <span class="coverage-value">₹${policy.coverage.annual_opd_limit.toLocaleString()}</span>
@@ -107,7 +109,7 @@ async function loadPolicyInfo() {
                         </div>
                     </div>
                     <div class="coverage-card">
-                        <div class="coverage-icon">📝</div>
+                        <div class="coverage-icon-box">PC</div>
                         <div class="coverage-details">
                             <span class="coverage-label">Per Claim</span>
                             <span class="coverage-value">₹${policy.coverage.per_claim_limit.toLocaleString()}</span>
@@ -115,10 +117,10 @@ async function loadPolicyInfo() {
                         </div>
                     </div>
                     <div class="coverage-card highlight">
-                        <div class="coverage-icon">🏥</div>
+                        <div class="coverage-icon-box highlight">20%</div>
                         <div class="coverage-details">
                             <span class="coverage-label">Network Discount</span>
-                            <span class="coverage-value">20%</span>
+                            <span class="coverage-value">Available</span>
                             <span class="coverage-sub">At Partner Hospitals</span>
                         </div>
                     </div>
@@ -137,7 +139,7 @@ async function loadPolicyInfo() {
                     ${Object.entries(policy.opd_categories).map(([cat, details]) => `
                         <div class="table-row">
                             <span class="category-name">
-                                <span class="category-icon">${categoryIcons[cat] || '📄'}</span>
+                                <span class="category-icon">${categoryIcons[cat] || 'O'}</span>
                                 ${formatCategoryName(cat)}
                             </span>
                             <span class="category-limit">₹${details.sub_limit.toLocaleString()}</span>
@@ -169,7 +171,7 @@ async function loadPolicyInfo() {
                 <h3 class="section-title">Exclusions & Waiting Periods</h3>
                 <div class="exclusions-grid">
                     <div class="exclusion-card">
-                        <h4>🚫 General Exclusions</h4>
+                        <h4>General Exclusions</h4>
                         <ul>
                             <li>Cosmetic procedures (unless medically necessary)</li>
                             <li>Self-inflicted injuries</li>
@@ -179,7 +181,7 @@ async function loadPolicyInfo() {
                         </ul>
                     </div>
                     <div class="exclusion-card">
-                        <h4>⏳ Waiting Periods</h4>
+                        <h4>Waiting Periods</h4>
                         <ul>
                             <li>Pre-existing conditions: 2 years</li>
                             <li>Maternity benefits: 9 months</li>
@@ -188,7 +190,7 @@ async function loadPolicyInfo() {
                         </ul>
                     </div>
                     <div class="exclusion-card">
-                        <h4>📋 Pre-Authorization Required</h4>
+                        <h4>Pre-Authorization Required</h4>
                         <ul>
                             <li>Claims above ₹10,000</li>
                             <li>All surgical procedures</li>
@@ -202,22 +204,10 @@ async function loadPolicyInfo() {
             <div class="policy-section">
                 <h3 class="section-title">Quick Actions</h3>
                 <div class="quick-actions">
-                    <button class="action-btn" onclick="showPage('submit')">
-                        <span class="action-icon">📤</span>
-                        <span>Submit Claim</span>
-                    </button>
-                    <button class="action-btn" onclick="window.print()">
-                        <span class="action-icon">🖨️</span>
-                        <span>Print Policy</span>
-                    </button>
-                    <button class="action-btn">
-                        <span class="action-icon">📞</span>
-                        <span>Contact Support</span>
-                    </button>
-                    <button class="action-btn">
-                        <span class="action-icon">📥</span>
-                        <span>Download PDF</span>
-                    </button>
+                    <button class="action-btn" onclick="showPage('submit')">Submit Claim</button>
+                    <button class="action-btn" onclick="window.print()">Print Policy</button>
+                    <button class="action-btn">Contact Support</button>
+                    <button class="action-btn">Download PDF</button>
                 </div>
             </div>
         `;
@@ -234,6 +224,314 @@ async function loadPolicyInfo() {
 function formatCategoryName(cat) {
     return cat.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 }
+
+async function loadDashboard() {
+    const container = document.getElementById('dashboardContent');
+    
+    try {
+        const response = await fetch(`${API_BASE}/decisions/run-all-tests`, { method: 'POST' });
+        const data = await response.json();
+        const results = data.results || [];
+        
+        const stats = {
+            total: results.length,
+            approved: results.filter(r => r.actual_decision === 'APPROVED').length,
+            partial: results.filter(r => r.actual_decision === 'PARTIAL').length,
+            rejected: results.filter(r => r.actual_decision === 'REJECTED').length,
+            manual: results.filter(r => r.actual_decision === 'MANUAL_REVIEW').length,
+            totalClaimed: results.reduce((sum, r) => sum + (r.decision?.claimed_amount || 0), 0),
+            totalApproved: results.reduce((sum, r) => sum + (r.decision?.approved_amount || 0), 0),
+            avgProcessingTime: Math.round(results.reduce((sum, r) => sum + (r.decision?.full_trace?.total_duration_ms || 0), 0) / results.length),
+            avgConfidence: (results.reduce((sum, r) => sum + (r.decision?.confidence_score || 0), 0) / results.length * 100).toFixed(1)
+        };
+        
+        const categoryStats = {};
+        results.forEach(r => {
+            const cat = r.decision?.category || 'UNKNOWN';
+            if (!categoryStats[cat]) categoryStats[cat] = { count: 0, amount: 0 };
+            categoryStats[cat].count++;
+            categoryStats[cat].amount += r.decision?.claimed_amount || 0;
+        });
+        
+        const approvalRate = ((stats.approved + stats.partial) / stats.total * 100).toFixed(1);
+        
+        const approvedPct = (stats.approved / stats.total * 100).toFixed(0);
+        const partialPct = (stats.partial / stats.total * 100).toFixed(0);
+        const rejectedPct = (stats.rejected / stats.total * 100).toFixed(0);
+        const manualPct = (stats.manual / stats.total * 100).toFixed(0);
+        
+        container.innerHTML = `
+            <div class="dashboard-grid">
+                <div class="stat-card-large">
+                    <div class="stat-icon-box">
+                        <span class="stat-icon-text">#</span>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value">${stats.total}</span>
+                        <span class="stat-label">Total Claims</span>
+                    </div>
+                </div>
+                <div class="stat-card-large success">
+                    <div class="stat-icon-box success">
+                        <span class="stat-icon-text">A</span>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value">${stats.approved}</span>
+                        <span class="stat-label">Approved</span>
+                    </div>
+                </div>
+                <div class="stat-card-large warning">
+                    <div class="stat-icon-box warning">
+                        <span class="stat-icon-text">P</span>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value">${stats.partial}</span>
+                        <span class="stat-label">Partial</span>
+                    </div>
+                </div>
+                <div class="stat-card-large danger">
+                    <div class="stat-icon-box danger">
+                        <span class="stat-icon-text">R</span>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value">${stats.rejected}</span>
+                        <span class="stat-label">Rejected</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-row">
+                <div class="dashboard-card">
+                    <h3>Approval Distribution</h3>
+                    <div class="chart-container">
+                        <div class="donut-chart" style="background: conic-gradient(
+                            #22c55e 0% ${approvedPct}%,
+                            #eab308 ${approvedPct}% ${parseInt(approvedPct) + parseInt(partialPct)}%,
+                            #ef4444 ${parseInt(approvedPct) + parseInt(partialPct)}% ${parseInt(approvedPct) + parseInt(partialPct) + parseInt(rejectedPct)}%,
+                            #6366f1 ${parseInt(approvedPct) + parseInt(partialPct) + parseInt(rejectedPct)}% 100%
+                        );">
+                            <div class="donut-hole">
+                                <span class="donut-value">${approvalRate}%</span>
+                                <span class="donut-label">Success Rate</span>
+                            </div>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #22c55e"></span>
+                                <span>Approved (${stats.approved})</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #eab308"></span>
+                                <span>Partial (${stats.partial})</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #ef4444"></span>
+                                <span>Rejected (${stats.rejected})</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #6366f1"></span>
+                                <span>Manual Review (${stats.manual})</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3>Financial Summary</h3>
+                    <div class="financial-stats">
+                        <div class="financial-row">
+                            <span class="financial-label">Total Claimed</span>
+                            <span class="financial-value">₹${stats.totalClaimed.toLocaleString()}</span>
+                        </div>
+                        <div class="financial-row">
+                            <span class="financial-label">Total Approved</span>
+                            <span class="financial-value highlight">₹${stats.totalApproved.toLocaleString()}</span>
+                        </div>
+                        <div class="financial-row">
+                            <span class="financial-label">Adjustments</span>
+                            <span class="financial-value">₹${(stats.totalClaimed - stats.totalApproved).toLocaleString()}</span>
+                        </div>
+                        <div class="financial-divider"></div>
+                        <div class="financial-row">
+                            <span class="financial-label">Payout Ratio</span>
+                            <span class="financial-value">${((stats.totalApproved / stats.totalClaimed) * 100).toFixed(1)}%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-row">
+                <div class="dashboard-card">
+                    <h3>Claims by Category</h3>
+                    <div class="category-bars">
+                        ${Object.entries(categoryStats).map(([cat, data]) => {
+                            const percentage = (data.count / stats.total * 100).toFixed(0);
+                            return `
+                                <div class="category-bar-item">
+                                    <div class="category-bar-header">
+                                        <span>${formatCategoryName(cat)}</span>
+                                        <span>${data.count} claims</span>
+                                    </div>
+                                    <div class="category-bar-track">
+                                        <div class="category-bar-fill" style="width: ${percentage}%"></div>
+                                    </div>
+                                    <div class="category-bar-amount">₹${data.amount.toLocaleString()}</div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3>System Metrics</h3>
+                    <div class="metrics-grid">
+                        <div class="metric-item">
+                            <span class="metric-value">${stats.avgProcessingTime}ms</span>
+                            <span class="metric-label">Avg Processing Time</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-value">${stats.avgConfidence}%</span>
+                            <span class="metric-label">Avg Confidence Score</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-value">5</span>
+                            <span class="metric-label">Active Agents</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-value">${approvalRate}%</span>
+                            <span class="metric-label">Approval Rate</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-card full-width">
+                <h3>Recent Claims</h3>
+                <div class="activity-table">
+                    <div class="activity-header">
+                        <span>Claim</span>
+                        <span>Category</span>
+                        <span>Claimed</span>
+                        <span>Approved</span>
+                        <span>Status</span>
+                    </div>
+                    ${results.slice(0, 6).map((r, i) => {
+                        const statusClass = r.actual_decision === 'APPROVED' ? 'success' : 
+                                           r.actual_decision === 'REJECTED' ? 'danger' : 'warning';
+                        return `
+                            <div class="activity-row">
+                                <span class="activity-name">${r.case_name}</span>
+                                <span class="activity-category">${r.decision?.category || 'N/A'}</span>
+                                <span class="activity-claimed">₹${(r.decision?.claimed_amount || 0).toLocaleString()}</span>
+                                <span class="activity-approved">₹${(r.decision?.approved_amount || 0).toLocaleString()}</span>
+                                <span><span class="status-badge-sm ${statusClass}">${r.actual_decision}</span></span>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            </div>
+        `;
+        
+    } catch (err) {
+        console.error('Failed to load dashboard:', err);
+        container.innerHTML = `
+            <div class="empty-state">
+                <p>Failed to load dashboard. Make sure the server is running.</p>
+                <button class="btn btn-primary" onclick="loadDashboard()">Retry</button>
+            </div>
+        `;
+    }
+}
+
+async function loadClaimHistory() {
+    const container = document.getElementById('historyContent');
+    const statusFilter = document.getElementById('statusFilter')?.value || '';
+    const categoryFilter = document.getElementById('categoryFilter')?.value || '';
+    
+    try {
+        const response = await fetch(`${API_BASE}/decisions/run-all-tests`, { method: 'POST' });
+        const data = await response.json();
+        let results = data.results || [];
+        
+        if (statusFilter) {
+            results = results.filter(r => r.actual_decision === statusFilter);
+        }
+        if (categoryFilter) {
+            results = results.filter(r => r.decision?.category === categoryFilter);
+        }
+        
+        if (results.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <p>No claims found matching the filters</p>
+                </div>
+            `;
+            return;
+        }
+        
+        container.innerHTML = `
+            <div class="history-table">
+                <div class="table-header-row">
+                    <span>Claim ID</span>
+                    <span>Category</span>
+                    <span>Member</span>
+                    <span>Claimed</span>
+                    <span>Approved</span>
+                    <span>Status</span>
+                    <span>Confidence</span>
+                    <span>Actions</span>
+                </div>
+                ${results.map((r, i) => {
+                    const statusClass = r.actual_decision === 'APPROVED' ? 'success' : 
+                                       r.actual_decision === 'REJECTED' ? 'danger' : 
+                                       r.actual_decision === 'PARTIAL' ? 'warning' : 'info';
+                    const claimId = r.decision?.full_trace?.claim_id || `CLM_${String(i + 1).padStart(4, '0')}`;
+                    return `
+                        <div class="table-data-row">
+                            <span class="claim-id">${claimId}</span>
+                            <span class="claim-category">
+                                <span class="category-badge">${r.decision?.category || 'N/A'}</span>
+                            </span>
+                            <span class="claim-member">${r.decision?.member_id || 'MEM001'}</span>
+                            <span class="claim-amount">₹${(r.decision?.claimed_amount || 0).toLocaleString()}</span>
+                            <span class="claim-approved ${statusClass}">₹${(r.decision?.approved_amount || 0).toLocaleString()}</span>
+                            <span class="claim-status">
+                                <span class="status-badge-sm ${statusClass}">${r.actual_decision}</span>
+                            </span>
+                            <span class="claim-confidence">${((r.decision?.confidence_score || 0) * 100).toFixed(0)}%</span>
+                            <span class="claim-actions">
+                                <button class="btn-icon" onclick='showDecision(${JSON.stringify(r.decision).replace(/'/g, "&#39;")})' title="View Details">
+                                    View
+                                </button>
+                            </span>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+            
+            <div class="history-summary">
+                <span>Showing ${results.length} claims</span>
+                <span>Total Claimed: ₹${results.reduce((sum, r) => sum + (r.decision?.claimed_amount || 0), 0).toLocaleString()}</span>
+                <span>Total Approved: ₹${results.reduce((sum, r) => sum + (r.decision?.approved_amount || 0), 0).toLocaleString()}</span>
+            </div>
+        `;
+        
+    } catch (err) {
+        console.error('Failed to load claim history:', err);
+        container.innerHTML = `
+            <div class="empty-state">
+                <p>Failed to load claim history. Make sure the server is running.</p>
+                <button class="btn btn-primary" onclick="loadClaimHistory()">Retry</button>
+            </div>
+        `;
+    }
+}
+
+function downloadClaimPDF(claimId) {
+    alert(`PDF download for ${claimId} - Feature coming soon!`);
+}
+
+window.loadClaimHistory = loadClaimHistory;
 
 function getTimestamp() {
     const now = new Date();
