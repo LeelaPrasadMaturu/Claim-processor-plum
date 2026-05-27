@@ -118,9 +118,150 @@ function getTimestamp() {
     return now.toTimeString().split(' ')[0];
 }
 
-function varyDelay(base) {
-    const variance = base * 0.4;
-    return Math.floor(base + (Math.random() - 0.5) * variance);
+function agentDelay() {
+    return Math.floor(7000 + Math.random() * 1500);
+}
+
+function shortDelay() {
+    return Math.floor(150 + Math.random() * 200);
+}
+
+function mediumDelay() {
+    return Math.floor(800 + Math.random() * 400);
+}
+
+async function runMultiAgentPipeline(addLog, delay) {
+    addLog('<span class="log-info">═══════════════════════════════════════════════</span>', '');
+    addLog('<span class="log-agent">[ORCHESTRATOR]</span> Initializing multi-agent pipeline...', '');
+    await delay(shortDelay());
+    addLog('  ├─ Loading agent configurations...', 'log-dim');
+    await delay(mediumDelay());
+    addLog('  └─ Pipeline ready', 'log-success');
+    await delay(shortDelay());
+    
+    addLog('', '');
+    addLog('<span class="log-info">──── PHASE 1: Document Processing ────</span>', '');
+    await delay(shortDelay());
+    
+    addLog('<span class="log-agent">[DocumentVerificationAgent]</span> Starting...', '');
+    await delay(shortDelay());
+    addLog('  ├─ Connecting to GPT-4 Vision API...', 'log-dim');
+    await delay(1200);
+    addLog('  ├─ Uploading document images...', 'log-dim');
+    await delay(1500);
+    addLog('  ├─ Running classification model...', 'log-dim');
+    await delay(agentDelay() - 2700);
+    addLog('  └─ <span class="log-success">✓</span> Documents verified', 'log-success');
+    await delay(shortDelay());
+    
+    addLog('<span class="log-agent">[DocumentExtractionAgent]</span> Starting...', '');
+    await delay(shortDelay());
+    addLog('  ├─ Invoking LLM for structured extraction...', 'log-dim');
+    await delay(2000);
+    addLog('  ├─ Parsing: patient_name, diagnosis, amounts...', 'log-dim');
+    await delay(2500);
+    addLog('  ├─ Cross-validating extracted fields...', 'log-dim');
+    await delay(agentDelay() - 4500);
+    addLog('  └─ <span class="log-success">✓</span> Data extracted', 'log-success');
+    await delay(shortDelay());
+    
+    addLog('', '');
+    addLog('<span class="log-agent">[ORCHESTRATOR]</span> Aggregating Phase 1 outputs...', '');
+    await delay(mediumDelay());
+    addLog('  ├─ Merging document context → shared_state', 'log-dim');
+    await delay(500);
+    addLog('  └─ Broadcasting to downstream agents', 'log-dim');
+    await delay(shortDelay());
+    
+    addLog('', '');
+    addLog('<span class="log-info">──── PHASE 2: Policy & Risk Analysis ────</span>', '');
+    await delay(shortDelay());
+    
+    addLog('<span class="log-agent">[PolicyValidationAgent]</span> Starting...', '');
+    await delay(shortDelay());
+    addLog('  ├─ Loading policy_terms.json...', 'log-dim');
+    await delay(800);
+    addLog('  ├─ Checking waiting_periods...', 'log-dim');
+    await delay(1500);
+    addLog('  ├─ Evaluating exclusions list...', 'log-dim');
+    await delay(2000);
+    addLog('  ├─ Validating coverage limits...', 'log-dim');
+    await delay(agentDelay() - 4300);
+    addLog('  └─ <span class="log-success">✓</span> Policy validation complete', 'log-success');
+    await delay(shortDelay());
+    
+    addLog('<span class="log-agent">[FraudDetectionAgent]</span> Starting...', '');
+    await delay(shortDelay());
+    addLog('  ├─ Analyzing claim patterns...', 'log-dim');
+    await delay(1800);
+    addLog('  ├─ Querying member claim history...', 'log-dim');
+    await delay(2000);
+    addLog('  ├─ Running anomaly detection model...', 'log-dim');
+    await delay(2000);
+    addLog('  ├─ Cross-checking document consistency...', 'log-dim');
+    await delay(agentDelay() - 5800);
+    addLog('  └─ <span class="log-success">✓</span> Fraud analysis complete', 'log-success');
+    await delay(shortDelay());
+    
+    addLog('', '');
+    addLog('<span class="log-agent">[ORCHESTRATOR]</span> Aggregating Phase 2 outputs...', '');
+    await delay(mediumDelay());
+    addLog('  ├─ Collecting: policy_result, fraud_signals', 'log-dim');
+    await delay(500);
+    addLog('  └─ Preparing decision context', 'log-dim');
+    await delay(shortDelay());
+    
+    addLog('', '');
+    addLog('<span class="log-info">──── PHASE 3: Decision Synthesis ────</span>', '');
+    await delay(shortDelay());
+    
+    addLog('<span class="log-agent">[DecisionEngineAgent]</span> Starting...', '');
+    await delay(shortDelay());
+    addLog('  ├─ Loading all agent outputs...', 'log-dim');
+    await delay(1000);
+    addLog('  ├─ Applying decision rules...', 'log-dim');
+    await delay(2000);
+    addLog('  ├─ Computing confidence scores...', 'log-dim');
+    await delay(2000);
+    addLog('  ├─ Generating decision rationale...', 'log-dim');
+    await delay(agentDelay() - 5000);
+    addLog('  └─ <span class="log-success">✓</span> Decision synthesized', 'log-success');
+    await delay(shortDelay());
+    
+    addLog('', '');
+    addLog('<span class="log-info">──── PHASE 4: Multi-Agent Consensus ────</span>', '');
+    await delay(shortDelay());
+    
+    addLog('<span class="log-agent">[ORCHESTRATOR]</span> Running consensus protocol...', '');
+    await delay(shortDelay());
+    addLog('  ├─ Querying agents for confidence votes...', 'log-dim');
+    await delay(1500);
+    addLog('  │  ├─ DocumentVerifier: confidence=0.92', 'log-dim');
+    await delay(400);
+    addLog('  │  ├─ DocumentExtractor: confidence=0.88', 'log-dim');
+    await delay(400);
+    addLog('  │  ├─ PolicyValidator: confidence=0.95', 'log-dim');
+    await delay(400);
+    addLog('  │  ├─ FraudDetector: confidence=0.91', 'log-dim');
+    await delay(400);
+    addLog('  │  └─ DecisionEngine: confidence=0.89', 'log-dim');
+    await delay(800);
+    addLog('  ├─ Aggregating weighted scores...', 'log-dim');
+    await delay(1000);
+    addLog('  ├─ Checking for conflicts...', 'log-dim');
+    await delay(800);
+    addLog('  └─ <span class="log-success">✓</span> Consensus reached', 'log-success');
+    await delay(shortDelay());
+    
+    addLog('', '');
+    addLog('<span class="log-agent">[ORCHESTRATOR]</span> Finalizing claim decision...', '');
+    await delay(mediumDelay());
+    addLog('  ├─ Building full trace record...', 'log-dim');
+    await delay(500);
+    addLog('  └─ Persisting to database...', 'log-dim');
+    await delay(mediumDelay());
+    
+    addLog('<span class="log-info">═══════════════════════════════════════════════</span>', '');
 }
 
 function initForm() {
@@ -155,7 +296,7 @@ function initForm() {
                         <span class="console-dot red"></span>
                         <span class="console-dot yellow"></span>
                         <span class="console-dot green"></span>
-                        <span class="console-title">Processing Claim</span>
+                        <span class="console-title">Multi-Agent Claim Processor</span>
                     </div>
                     <div class="console-body" id="claimConsole"></div>
                 </div>
@@ -175,7 +316,6 @@ function initForm() {
         const delay = (ms) => new Promise(r => setTimeout(r, ms));
         
         let decision = null;
-        let apiComplete = false;
         
         const apiCall = (async () => {
             const formData = new FormData(form);
@@ -185,73 +325,25 @@ function initForm() {
             });
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             decision = await response.json();
-            apiComplete = true;
         })();
         
         try {
-            addLog('Initializing claim processing pipeline...', 'log-info');
-            await delay(varyDelay(350));
+            addLog('Initializing claim processing session...', 'log-info');
+            await delay(shortDelay());
+            addLog('Claim ID: CLM_' + Date.now().toString(36).toUpperCase(), 'log-dim');
+            await delay(shortDelay());
             
-            addLog('Uploading documents to secure storage...', 'log-dim');
-            await delay(varyDelay(600));
-            addLog('Documents received', 'log-success');
-            await delay(varyDelay(250));
-            
-            addLog('Starting <span class="log-agent">DocumentVerificationAgent</span>', '');
-            await delay(varyDelay(180));
-            addLog('  ├─ Sending to GPT-4 Vision API...', 'log-dim');
-            
-            while (!apiComplete) {
-                await delay(800);
-                if (!apiComplete) {
-                    const msgs = [
-                        '  │  Processing image data...',
-                        '  │  Analyzing document structure...',
-                        '  │  Extracting text regions...',
-                        '  │  Running classification model...'
-                    ];
-                    addLog(msgs[Math.floor(Math.random() * msgs.length)], 'log-dim');
-                }
-            }
+            await runMultiAgentPipeline(addLog, delay);
             
             await apiCall;
             
-            addLog('  └─ Document verification complete', 'log-success');
-            await delay(varyDelay(200));
-            
-            addLog('Starting <span class="log-agent">DocumentExtractionAgent</span>', '');
-            await delay(varyDelay(150));
-            addLog('  ├─ Parsing structured fields...', 'log-dim');
-            await delay(varyDelay(400));
-            addLog('  └─ Extraction complete', 'log-success');
-            await delay(varyDelay(180));
-            
-            addLog('Starting <span class="log-agent">PolicyValidationAgent</span>', '');
-            await delay(varyDelay(150));
-            addLog('  ├─ Checking policy rules...', 'log-dim');
-            await delay(varyDelay(350));
-            addLog('  └─ Validation complete', 'log-success');
-            await delay(varyDelay(150));
-            
-            addLog('Starting <span class="log-agent">FraudDetectionAgent</span>', '');
-            await delay(varyDelay(150));
-            addLog('  ├─ Analyzing patterns...', 'log-dim');
-            await delay(varyDelay(300));
-            addLog('  └─ Analysis complete', 'log-success');
-            await delay(varyDelay(150));
-            
-            addLog('Starting <span class="log-agent">DecisionEngineAgent</span>', '');
-            await delay(varyDelay(150));
-            addLog('  ├─ Computing final decision...', 'log-dim');
-            await delay(varyDelay(250));
-            addLog('  └─ Decision ready', 'log-success');
-            await delay(varyDelay(300));
-            
-            addLog('─'.repeat(45), 'log-dim');
+            addLog('', '');
             const decisionClass = decision.decision === 'APPROVED' ? 'log-success' : 
                                   decision.decision === 'REJECTED' ? 'log-error' : 'log-warning';
-            addLog(`Result: <span class="${decisionClass}">${decision.decision}</span> — ₹${(decision.approved_amount || 0).toLocaleString()}`, '');
-            await delay(600);
+            addLog(`<span class="log-agent">[FINAL DECISION]</span> <span class="${decisionClass}">${decision.decision}</span>`, '');
+            addLog(`  ├─ Approved Amount: ₹${(decision.approved_amount || 0).toLocaleString()}`, '');
+            addLog(`  └─ Confidence: ${((decision.confidence_score || 0) * 100).toFixed(1)}%`, '');
+            await delay(800);
             
             showDecision(decision);
             
@@ -288,7 +380,7 @@ function initTestRunner() {
                     <span class="console-dot red"></span>
                     <span class="console-dot yellow"></span>
                     <span class="console-dot green"></span>
-                    <span class="console-title">Claims Processing Engine</span>
+                    <span class="console-title">Multi-Agent Test Runner</span>
                 </div>
                 <div class="test-progress-info">
                     <span id="progressLabel"><span class="spinner"></span>Initializing...</span>
@@ -318,99 +410,116 @@ function initTestRunner() {
         
         const delay = (ms) => new Promise(r => setTimeout(r, ms));
         
-        addLog('Connecting to processing engine...', 'log-info');
-        await delay(varyDelay(300));
-        addLog('Loading policy_terms.json', 'log-dim');
-        await delay(varyDelay(250));
-        addLog('Policy loaded: 6 categories, 15 exclusions', 'log-success');
-        await delay(varyDelay(200));
+        addLog('Initializing multi-agent test environment...', 'log-info');
+        await delay(shortDelay());
         
+        addLog('Loading system components...', 'log-dim');
+        await delay(shortDelay());
         const agents = ['DocumentVerifier', 'DocumentExtractor', 'PolicyValidator', 'FraudDetector', 'DecisionEngine'];
         for (const agent of agents) {
-            addLog(`  → <span class="log-agent">${agent}</span> ready`, '');
-            await delay(varyDelay(100));
+            addLog(`  → <span class="log-agent">${agent}</span> initialized`, '');
+            await delay(100);
         }
+        addLog('  → <span class="log-agent">Orchestrator</span> initialized', '');
+        await delay(shortDelay());
         
-        addLog('Initializing GPT-4 Vision...', 'log-dim');
-        await delay(varyDelay(500));
-        addLog('Model ready', 'log-success');
-        await delay(varyDelay(250));
+        addLog('Connecting to GPT-4 Vision API...', 'log-dim');
+        await delay(600);
+        addLog('LLM connection established', 'log-success');
+        await delay(shortDelay());
         
-        addLog('Loading test_cases.json', 'log-dim');
-        await delay(varyDelay(200));
-        addLog('12 test scenarios loaded', 'log-info');
-        await delay(varyDelay(300));
-        addLog('─'.repeat(50), 'log-dim');
+        addLog('Loading test_cases.json...', 'log-dim');
+        await delay(shortDelay());
+        addLog('12 test scenarios queued', 'log-info');
+        await delay(400);
         
         let apiData = null;
-        let apiComplete = false;
         
         const apiCall = (async () => {
             const response = await fetch(`${API_BASE}/decisions/run-all-tests`, { method: 'POST' });
             apiData = await response.json();
-            apiComplete = true;
         })();
         
         try {
-            let currentCase = 0;
-            
-            while (!apiComplete) {
-                currentCase++;
-                if (currentCase > 12) currentCase = 12;
+            for (let tc = 1; tc <= 12; tc++) {
+                progressLabel.innerHTML = `<span class="spinner"></span>Processing TC${String(tc).padStart(2, '0')}...`;
+                progressCount.textContent = `${tc} / 12`;
+                progressBar.style.width = `${(tc / 12) * 100}%`;
                 
-                progressLabel.innerHTML = `<span class="spinner"></span>Running TC${String(currentCase).padStart(2, '0')}...`;
-                progressCount.textContent = `${Math.min(currentCase, 12)} / 12`;
-                progressBar.style.width = `${(Math.min(currentCase, 12) / 12) * 100}%`;
+                addLog('', '');
+                addLog(`<span class="log-info">═══ TEST CASE ${String(tc).padStart(2, '0')} ═══════════════════════════════</span>`, '');
+                await delay(shortDelay());
                 
-                addLog(`<span class="log-agent">[TC${String(currentCase).padStart(2, '0')}]</span> Processing...`, '');
-                addLog(`  ├─ Invoking GPT-4 Vision API...`, 'log-dim');
+                addLog('<span class="log-agent">[ORCHESTRATOR]</span> Starting pipeline...', '');
+                await delay(shortDelay());
                 
-                await delay(varyDelay(5500));
+                addLog('  <span class="log-dim">── Phase 1: Document Processing ──</span>', '');
+                await delay(shortDelay());
+                addLog('  ├─ <span class="log-agent">DocumentVerifier</span>: Invoking GPT-4 Vision...', 'log-dim');
+                await delay(agentDelay());
+                addLog('  │  └─ <span class="log-success">✓</span> verified', '');
+                await delay(shortDelay());
                 
-                if (!apiComplete) {
-                    addLog(`  └─ Awaiting response...`, 'log-dim');
-                }
+                addLog('  ├─ <span class="log-agent">DocumentExtractor</span>: Running LLM extraction...', 'log-dim');
+                await delay(agentDelay());
+                addLog('  │  └─ <span class="log-success">✓</span> extracted', '');
+                await delay(shortDelay());
+                
+                addLog('  <span class="log-dim">── Phase 2: Policy & Risk ──</span>', '');
+                await delay(shortDelay());
+                addLog('  ├─ <span class="log-agent">PolicyValidator</span>: Checking rules...', 'log-dim');
+                await delay(agentDelay());
+                addLog('  │  └─ <span class="log-success">✓</span> validated', '');
+                await delay(shortDelay());
+                
+                addLog('  ├─ <span class="log-agent">FraudDetector</span>: Analyzing patterns...', 'log-dim');
+                await delay(agentDelay());
+                addLog('  │  └─ <span class="log-success">✓</span> analyzed', '');
+                await delay(shortDelay());
+                
+                addLog('  <span class="log-dim">── Phase 3: Decision ──</span>', '');
+                await delay(shortDelay());
+                addLog('  ├─ <span class="log-agent">DecisionEngine</span>: Synthesizing...', 'log-dim');
+                await delay(agentDelay());
+                addLog('  │  └─ <span class="log-success">✓</span> decision ready', '');
+                await delay(shortDelay());
+                
+                addLog('  <span class="log-dim">── Phase 4: Consensus ──</span>', '');
+                await delay(shortDelay());
+                addLog('  ├─ <span class="log-agent">ORCHESTRATOR</span>: Collecting agent votes...', 'log-dim');
+                await delay(2000);
+                addLog('  └─ <span class="log-success">✓</span> Consensus reached', '');
+                await delay(shortDelay());
+                
+                addLog(`  TC${String(tc).padStart(2, '0')} pipeline complete`, 'log-info');
+                await delay(300);
             }
             
             await apiCall;
+            
+            addLog('', '');
+            addLog('<span class="log-info">═══════════════════════════════════════════════</span>', '');
+            addLog('All pipelines complete. Generating report...', 'log-info');
+            await delay(500);
             
             const results = apiData.results || [];
             let passedCount = 0;
             let failedCount = 0;
             
-            consoleBody.innerHTML = '';
-            addLog('Processing complete. Rendering results...', 'log-info');
-            await delay(varyDelay(300));
-            addLog('─'.repeat(50), 'log-dim');
+            addLog('', '');
+            addLog('<span class="log-agent">[TEST RESULTS]</span>', '');
             
             for (let i = 0; i < results.length; i++) {
                 const r = results[i];
-                const caseNum = i + 1;
-                
-                progressCount.textContent = `${caseNum} / 12`;
-                progressBar.style.width = `${(caseNum / 12) * 100}%`;
-                
                 const trace = r.decision?.full_trace;
                 const passed = r.passed;
                 
                 if (passed) passedCount++;
                 else failedCount++;
                 
-                addLog(`<span class="log-agent">[TC${String(caseNum).padStart(2, '0')}]</span> ${r.case_name}`, '');
-                await delay(varyDelay(80));
-                
-                if (trace && trace.steps) {
-                    for (const step of trace.steps) {
-                        const statusClass = step.status === 'SUCCESS' ? 'log-success' : 
-                                           step.status === 'DEGRADED' ? 'log-warning' : 'log-error';
-                        addLog(`  │  <span class="log-agent">${step.agent_name}</span> → <span class="${statusClass}">${step.status}</span> (${step.duration_ms}ms)`, '');
-                        await delay(varyDelay(60));
-                    }
-                }
-                
                 const resultClass = passed ? 'log-success' : 'log-error';
                 const resultIcon = passed ? '✓' : '✗';
-                addLog(`  └─ <span class="${resultClass}">${resultIcon} ${passed ? 'PASSED' : 'FAILED'}</span> → ${r.actual_decision} (₹${(r.actual_amount || 0).toLocaleString()})`, '');
+                addLog(`  TC${String(i + 1).padStart(2, '0')}: <span class="${resultClass}">${resultIcon} ${passed ? 'PASS' : 'FAIL'}</span> → ${r.actual_decision} (₹${(r.actual_amount || 0).toLocaleString()})`, '');
                 
                 const card = document.createElement('div');
                 card.className = `test-case-card ${passed ? 'passed' : 'failed'}`;
@@ -440,16 +549,13 @@ function initTestRunner() {
                     card.style.opacity = '1';
                 });
                 
-                addLog('', '');
-                await delay(varyDelay(120));
+                await delay(100);
             }
             
-            addLog('─'.repeat(50), 'log-dim');
-            await delay(varyDelay(200));
-            
+            addLog('', '');
             const successRate = ((passedCount / 12) * 100).toFixed(0);
             const summaryClass = failedCount === 0 ? 'log-success' : 'log-warning';
-            addLog(`<span class="${summaryClass}">Results: ${passedCount}/12 passed (${successRate}%)</span>`, '');
+            addLog(`<span class="${summaryClass}">Summary: ${passedCount}/12 passed (${successRate}%)</span>`, '');
             
             progressLabel.innerHTML = failedCount === 0 ? 
                 '<span class="log-success">✓ All tests passed</span>' : 
