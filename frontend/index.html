@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plum Claims Processor</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="brand-icon">+</span>
+                <span class="brand-text">Plum Claims</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="submit">Submit Claim</a></li>
+                <li><a href="#" class="nav-link" data-page="test">Run Tests</a></li>
+                <li><a href="#" class="nav-link" data-page="policy">Policy Info</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- Home Page -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <h1>Health Insurance Claims Processing</h1>
+                <p class="hero-subtitle">AI-powered multi-agent system for fast, accurate, and explainable claim decisions</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">AI Agents</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Test Cases</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Pass Rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">&lt;1s</div>
+                        <div class="stat-label">Processing</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2>How It Works</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">1</div>
+                        <h3>Document Verification</h3>
+                        <p>Validates uploaded documents match claim requirements. Catches wrong or unreadable documents early with specific error messages.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">2</div>
+                        <h3>Data Extraction</h3>
+                        <p>Uses AI vision to extract patient details, diagnosis, treatment, and amounts from prescriptions, bills, and reports.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">3</div>
+                        <h3>Policy Validation</h3>
+                        <p>Checks waiting periods, exclusions, sub-limits, pre-authorization requirements, and applies network discounts.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">4</div>
+                        <h3>Fraud Detection</h3>
+                        <p>Identifies suspicious patterns like multiple same-day claims, high-value submissions, and document inconsistencies.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">5</div>
+                        <h3>Decision Engine</h3>
+                        <p>Combines all agent outputs to produce APPROVED, PARTIAL, REJECTED, or MANUAL_REVIEW with full explainability.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">✓</div>
+                        <h3>Full Trace</h3>
+                        <p>Every decision includes a complete audit trail showing what was checked, what passed, and why the decision was made.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <button class="btn btn-primary btn-large" onclick="showPage('submit')">Submit a Claim</button>
+                <button class="btn btn-secondary btn-large" onclick="showPage('test')">Run Test Cases</button>
+            </div>
+        </section>
+
+        <!-- Submit Claim Page -->
+        <section id="submit" class="page">
+            <div class="page-header">
+                <h1>Submit a New Claim</h1>
+                <p>Fill in the claim details and upload supporting documents</p>
+            </div>
+
+            <form id="claimForm" class="claim-form" enctype="multipart/form-data">
+                <div class="form-section">
+                    <h3>Member Information</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="member_id">Member ID</label>
+                            <select id="member_id" name="member_id" required>
+                                <option value="">Select Member</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="claim_category">Claim Category</label>
+                            <select id="claim_category" name="claim_category" required>
+                                <option value="CONSULTATION">Consultation</option>
+                                <option value="DIAGNOSTIC">Diagnostic</option>
+                                <option value="PHARMACY">Pharmacy</option>
+                                <option value="DENTAL">Dental</option>
+                                <option value="VISION">Vision</option>
+                                <option value="ALTERNATIVE_MEDICINE">Alternative Medicine</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Claim Details</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="treatment_date">Treatment Date</label>
+                            <input type="date" id="treatment_date" name="treatment_date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="claimed_amount">Claimed Amount (₹)</label>
+                            <input type="number" id="claimed_amount" name="claimed_amount" min="500" placeholder="Enter amount" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hospital_name">Hospital Name (Optional)</label>
+                            <input type="text" id="hospital_name" name="hospital_name" placeholder="e.g., Apollo Hospitals">
+                        </div>
+                        <div class="form-group">
+                            <label for="ytd_claims_amount">Year-to-Date Claims (₹)</label>
+                            <input type="number" id="ytd_claims_amount" name="ytd_claims_amount" value="0" min="0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Documents</h3>
+                    <div class="form-group">
+                        <label for="documents">Upload Documents</label>
+                        <div class="file-upload-area" id="dropZone">
+                            <input type="file" id="documents" name="documents" multiple accept="image/*,.pdf" required>
+                            <div class="upload-placeholder">
+                                <span class="upload-icon">📄</span>
+                                <p>Drag & drop files here or click to browse</p>
+                                <small>Supported: Images (JPG, PNG) and PDF</small>
+                            </div>
+                            <div class="file-list" id="fileList"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-group checkbox-group">
+                        <label>
+                            <input type="checkbox" id="simulate_failure" name="simulate_component_failure">
+                            <span>Simulate Component Failure (for testing graceful degradation)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <span class="btn-text">Process Claim</span>
+                        <span class="btn-loading">Processing...</span>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Test Cases Page -->
+        <section id="test" class="page">
+            <div class="page-header">
+                <h1>Test Cases</h1>
+                <p>Run the 12 predefined test cases to evaluate the system</p>
+            </div>
+
+            <div class="test-actions">
+                <button class="btn btn-primary" id="runAllTests">
+                    <span class="btn-text">Run All Tests</span>
+                    <span class="btn-loading">Running...</span>
+                </button>
+            </div>
+
+            <div id="testResults" class="test-results">
+                <div class="empty-state">
+                    <span class="empty-icon">🧪</span>
+                    <p>Click "Run All Tests" to execute all 12 test cases</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Policy Info Page -->
+        <section id="policy" class="page">
+            <div class="page-header">
+                <h1>Policy Information</h1>
+                <p>Coverage details, limits, and network hospitals</p>
+            </div>
+
+            <div id="policyInfo" class="policy-content">
+                <div class="loading-state">Loading policy information...</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Result Modal -->
+    <div id="resultModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div id="decisionResult"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Plum Health Insurance Claims Processor &bull; Multi-Agent AI System</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
